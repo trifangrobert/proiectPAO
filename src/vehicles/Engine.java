@@ -44,4 +44,14 @@ public class Engine {
         this.torque = torque;
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Engine{" +
+                "size=" + size +
+                ", horsePower=" + horsePower +
+                ", torque=" + torque +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

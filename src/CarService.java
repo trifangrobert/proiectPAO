@@ -1,4 +1,5 @@
 import employees.Employee;
+import employees.Mechanic;
 import vehicles.Brand;
 import vehicles.Model;
 
@@ -45,12 +46,16 @@ public class CarService {
     }
 
     public void removeEmployee(Employee employee) {
-        employees.remove(employee);
+        try {
+            employees.remove(employee);
+        } catch (Exception e) {
+            System.out.println("Employee not found");
+        }
     }
 
     public void printModelsOnStock() {
         for (Model model : stock.keySet()) {
-            System.out.println(model);
+            System.out.println(model.getBrandName() + " " + model.getModelName() + " " + stock.get(model));
         }
     }
 
@@ -58,6 +63,49 @@ public class CarService {
         for (Employee employee : employees) {
             System.out.println(employee);
         }
+    }
+
+    public void buyModel(String brandName, String modelName, int quantity) {
+        for (Model model : stock.keySet()) {
+            if (model.getBrandName().equals(brandName) && model.getModelName().equals(modelName)) {
+                if (stock.get(model) > quantity) {
+                    stock.put(model, stock.get(model) - quantity);
+                } else {
+                    stock.remove(model);
+                }
+            }
+        }
+    }
+
+    public void repairModel(Model model, Mechanic mechanic) {
+
+        String listOfBrands[] = new String[mechanic.getCarsWorkedOn().size()];
+        int i = 0;
+        for (Brand brand : mechanic.getCarsWorkedOn()) {
+            listOfBrands[i] = brand.getBrandName();
+            i++;
+        }
+        for (String brand : listOfBrands) {
+            if (brand.equals(model.getBrandName())) {
+                System.out.println("Car repaired");
+                return;
+            }
+        }
+        System.out.println("Mechanic can't repair this car");
+    }
+
+    public void printMechanics() {
+        for (Employee employee : employees) {
+            if (employee instanceof Mechanic) {
+                System.out.println(employee);
+            }
+        }
+    }
+
+    public void addBrandToMechanic(Mechanic mechanic, Brand brand) {
+        employees.remove(mechanic);
+        mechanic.addCarWorkedOn(brand);
+        employees.add(mechanic);
     }
 
 }
