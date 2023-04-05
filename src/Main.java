@@ -11,7 +11,8 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
-        CarService carService = new CarService("Car Service", "Address", new ArrayList<>(), new ArrayList<>(), new HashMap<>());
+
+        CarService carService = new CarService("Car Service", "Address", new ArrayList<>(), new HashMap<>());
 
         carService.addEmployee(new HumanResources("John", "Doe", "johndoe@gmail.com", "123456789", "Str. Nowhere", 5, new ArrayList<String>(Arrays.asList("English","French"))));
         carService.addEmployee(new HumanResources("Jane", "Doe", "janedoe@gmail.com", "987654321", "Str. Nowhere", 3, new ArrayList<String>(Arrays.asList("English","Spanish"))));
@@ -37,10 +38,22 @@ public class Main {
         carService.buyModel("Lamborghini", "Urus", 2);
         carService.printModelsOnStock();
 
-
         carService.repairModel(urus, mechanic1);
 
         carService.addBrandToMechanic(mechanic1, brandPorsche);
         carService.printMechanics();
+
+        carService.createBrand("McLaren", "Bruce McLaren", "Mike Flewitt", 100);
+        carService.createBrand("Bugatti", "Ettore Bugatti", "Stephan Winkelmann", 100);
+        carService.createBrand("Lamborghini", "Ferruccio Lamborghini", "Stephan Winkelmann", 238);
+        carService.createBrand("Ferrari", "Enzo Ferrari", "Louis Camilleri", 90);
+        carService.createBrand("Porsche", "Ferdinand Porsche", "Oliver Blume", 30);
+        carService.createBrand("BMW", "Karl Rapp", "Oliver Zipse", 100);
+
+        carService.createEngine(8, 650, 650, "V8");
+        carService.createEngine(10, 610, 610, "V10");
+        carService.createEngine(12, 700, 700, "V12");
+
+        carService.printBrands();
     }
 }

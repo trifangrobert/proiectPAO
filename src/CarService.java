@@ -1,28 +1,36 @@
 import employees.Employee;
+import employees.HumanResources;
 import employees.Mechanic;
 import vehicles.Brand;
+import vehicles.Engine;
 import vehicles.Model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class CarService {
     private String name;
     private String address;
     private ArrayList<Employee> employees;
-    private ArrayList<Brand> brands;
+    private SortedSet<Brand> brands;
     private HashMap<Model, Integer> stock;
-    public CarService(String name, String address, ArrayList<Employee> employees, ArrayList<Brand> brands, HashMap<Model, Integer> stock) {
+
+    public CarService(String name, String address, ArrayList<Employee> employees, HashMap<Model, Integer> stock) {
         this.name = name;
         this.address = address;
         this.employees = employees;
-        this.brands = brands;
+        this.brands = new TreeSet<Brand>();
         this.stock = stock;
-        System.out.println("Car Service created");
-
     }
 
+    public Brand createBrand(String brandName, String founderName, String ceoName, int revenue) {
+        Brand brand = new Brand(brandName, founderName, ceoName, revenue);
+        brands.add(brand);
+        return brand;
+    }
+
+    public void removeBrand(Brand brand) {
+        brands.remove(brand);
+    }
     public void addModel(Model model, int quantity) {
         if (stock.containsKey(model)) {
             stock.put(model, stock.get(model) + quantity);
@@ -53,6 +61,11 @@ public class CarService {
         }
     }
 
+    public void printBrands() {
+        for (Brand brand : brands) {
+            System.out.println(brand);
+        }
+    }
     public void printModelsOnStock() {
         for (Model model : stock.keySet()) {
             System.out.println(model.getBrandName() + " " + model.getModelName() + " " + stock.get(model));
@@ -77,6 +90,9 @@ public class CarService {
         }
     }
 
+    public Engine createEngine(float size, int horsePower, int torque, String name) {
+        return new Engine(size, horsePower, torque, name);
+    }
     public void repairModel(Model model, Mechanic mechanic) {
 
         String listOfBrands[] = new String[mechanic.getCarsWorkedOn().size()];

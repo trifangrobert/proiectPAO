@@ -1,6 +1,6 @@
 package vehicles;
 
-public class Brand {
+public class Brand implements Comparable<Brand> {
     protected String brandName;
     protected String founderName;
     protected String ceoName;
@@ -52,5 +52,10 @@ public class Brand {
                 ", ceoName='" + ceoName + '\'' +
                 ", revenue=" + revenue +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Brand o) {
+        return this.revenue - o.revenue;
     }
 }

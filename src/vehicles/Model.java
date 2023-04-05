@@ -4,7 +4,6 @@ public class Model extends Brand {
     private String modelName;
     private Engine engineType;
     private String color;
-
     private int price;
     private int yearOfProduction;
 
